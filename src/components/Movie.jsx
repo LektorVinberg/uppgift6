@@ -1,7 +1,7 @@
 import { Box, HStack, Text, IconButton } from '@chakra-ui/react';
 import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 
-export default function Movie({ title, rating, deleteMovie }) {
+export default function Movie({ id, title, rating, deleteMovie }) {
   const addStars = () => {
     return (
       <HStack>
@@ -14,13 +14,13 @@ export default function Movie({ title, rating, deleteMovie }) {
   return (
     <>
       <Box bg={'gray.200'}>
-        <HStack>
+        <HStack alignContent="stretch">
           <>
             <Text>{title}</Text>
             {addStars()}
             <IconButton
               icon={<DeleteIcon />}
-              onClick={() => deleteMovie()}
+              onClick={() => deleteMovie(id)}
             ></IconButton>
           </>
         </HStack>

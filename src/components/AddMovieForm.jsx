@@ -6,39 +6,46 @@ import {
   Select,
   VStack,
   Button,
-  Box,
+  Heading,
   Card,
+  useToast,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 
 export default function AddMovieForm({ addMovie }) {
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState(false);
-  /* const titleError = title === ''; */
   const [rating, setRating] = useState();
   const [ratingError, setRatingError] = useState(false);
-  /* let ratingError = rating === ''; */
 
-  useEffect(() => {
-    if (title) {
-      console.log(title);
-    }
-  }, [title]);
-
-  useEffect(() => {
-    console.log(rating);
-  }, [rating]);
+  const toast = useToast();
 
   const validateFields = () => {
     if (!rating) {
       setRatingError(true);
+      toast({
+        title: 'Fel',
+        description: 'Du har glömt fylla i filmens betyg',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top',
+      });
     }
     if (!title) {
       setTitleError(true);
+      toast({
+        title: 'Fel',
+        description: 'Du har glömt fylla i filmens titel',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top',
+      });
     }
 
     if (title && rating) {
-      addMovie(title, rating);
+      addMovie(title, Number.parseInt(rating));
       setTitle('');
       setRating(0);
     }
@@ -47,6 +54,7 @@ export default function AddMovieForm({ addMovie }) {
   return (
     <Card margin={'3%'} padding={'2%'}>
       <VStack>
+        <Heading>Lägg till en film</Heading>
         <FormControl isRequired isInvalid={titleError}>
           <FormLabel>Titel:</FormLabel>
           <Input
@@ -72,9 +80,7 @@ export default function AddMovieForm({ addMovie }) {
             value={rating}
             placeholder="Sätt betyg på filmen"
             onChange={e => {
-              setRating(() => {
-                return Number.parseInt(e.target.value);
-              });
+              setRating(e.target.value);
               if (e.target.value === '') {
                 setRatingError(true);
               } else {
