@@ -13,15 +13,18 @@ export default function Movie({ id, title, rating, deleteMovie }) {
   };
   return (
     <>
-      <Box bg={'gray.200'}>
-        <HStack alignContent="stretch">
+      <Box bg={'gray.200'} width={'80%'} borderRadius={5}>
+        <HStack justifyContent="space-between" paddingLeft={5}>
           <>
             <Text>{title}</Text>
-            {addStars()}
-            <IconButton
-              icon={<DeleteIcon />}
-              onClick={() => deleteMovie(id)}
-            ></IconButton>
+            <HStack>
+              {addStars()}
+              <IconButton
+                icon={<DeleteIcon />}
+                onClick={() => deleteMovie(id)}
+                colorScheme="red"
+              ></IconButton>
+            </HStack>
           </>
         </HStack>
       </Box>

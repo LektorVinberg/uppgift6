@@ -10,7 +10,7 @@ import {
   Card,
   useToast,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function AddMovieForm({ addMovie }) {
   const [title, setTitle] = useState('');

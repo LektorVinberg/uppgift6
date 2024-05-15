@@ -3,32 +3,20 @@ import {
   ChakraProvider,
   Card,
   Button,
-  Box,
-  Text,
-  Link,
   VStack,
-  Code,
-  Grid,
   theme,
   HStack,
   Heading,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { useState } from 'react';
 import AddMovieForm from './components/AddMovieForm';
 import Movie from './components/Movie';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [movieId, setMovieId] = useState(0);
-  useEffect(() => {
-    console.log('ngt har ändrats i movies...');
-    console.log(movies);
-  }, [movies]);
 
   const addMovieToList = (title, rating) => {
-    console.log(`Lägger till ${title} med betyget ${rating}...`);
     const newMovie = {
       id: movieId,
       title: title,
@@ -39,7 +27,6 @@ function App() {
   };
 
   const deleteMovie = id => {
-    console.log('nu slänger vi en film!!', id);
     setMovies(() => {
       return movies.filter(movie => movie.id !== id);
     });
@@ -61,7 +48,6 @@ function App() {
     <ChakraProvider theme={theme}>
       <AddMovieForm addMovie={addMovieToList} />
 
-      {/* <Movie title="apornas plan" rating={5} deleteMovie={deleteMovie} /> */}
       {movies.length > 0 && (
         <>
           <Card margin={'3%'} padding={'2%'}>
@@ -85,27 +71,6 @@ function App() {
           </Card>
         </>
       )}
-
-      {/* <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to relöd.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box> */}
     </ChakraProvider>
   );
 }
